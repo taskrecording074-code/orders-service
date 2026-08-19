@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  orders-service:
+    build: .
+    container_name: orders-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - orders-db
+    environment:
+      - DB_HOST=orders-db
+      - DB_PORT=5432
+
+  orders-db:
+    image: postgres:16
+    container_name: orders-db
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=ordersuser
+      - POSTGRES_PASSWORD=orderspass123
+      - POSTGRES_DB=orders_db
